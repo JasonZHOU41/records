@@ -2,7 +2,7 @@ import records
 import matplotlib.pyplot as plt
 
 
-class Opera_Database(object):
+class Operate_Database(object):
     def __init__(self, url):
         self.url = url
 
@@ -49,10 +49,9 @@ class Data_Analysis(object):
 
 
 class Result_visualization(object):
-    def __init__(self, plt_x, plt_label, plt_title):
+    def __init__(self, plt_x, plt_label):
         self.x = plt_x
         self.label = plt_label
-        self.title = plt_title
 
     def X(self):
         x_axis = []
@@ -60,20 +59,20 @@ class Result_visualization(object):
             x_axis.append(self.x[item])
         return x_axis
 
-    def Pie(self):
+    def Pie(self, title):
         plt.pie(self.X(), labels=self.label, autopct='%1.2f%%')
-        plt.title(self.title)
+        plt.title(title)
         plt.show()
         return
 
-    def Bar(self):
+    def Bar(self, title):
         plt.bar(range(len(self.X())), self.X(), tick_label=label)
-        plt.title(self.title)
+        plt.title(title)
         plt.show()
         return
 
 
-db = Opera_Database('sqlite:///myproject-dev.sqlite3')
+db = Operate_Database('sqlite:///myproject-dev.sqlite3')
 result = db.Query('select * from users')
 # for i in rows:
 #     print(i)
@@ -88,10 +87,12 @@ Tool.Show_data()
 # dic.keys()
 x = Tool.Distribution('role_id')
 label = ['Manager', 'Host', 'Waiter', 'Kitchen', 'Busboy']
-title = 'Test'
-v = Result_visualization(x, label, title)
-v.Pie()
-v.Bar()
+title1 = 'The number of each position'
+title2 = 'The proportion of each position'
+
+v = Result_visualization(x, label)
+v.Pie(title1)
+v.Bar(title2)
 # x = []
 # for item in Tool.Distribution('role_id'):
 #     print(Tool.Distribution('role_id')[item])
